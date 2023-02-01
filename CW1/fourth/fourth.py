@@ -3,8 +3,10 @@ def main():
     #     input_values = f.readline().split(' ')  # сложность O(n) поскольку split делает посимвольную обработку
     #
     # result = int(input_values[0]) / int(input_values[1])
-    result = 500002 / 500001 # нужно сделать чтобы нули в начале не учитывались
+
+    result = 500002 / 500001  # нужно сделать чтобы нули в начале не учитывались
     print(result)
+
     result = str(result).split('.')
     integer = result[0]
     fractional = result[1]

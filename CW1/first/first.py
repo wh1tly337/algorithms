@@ -1,5 +1,9 @@
-def creating_arrays():
-    with open('input.txt') as f:  # noqa
+# from memory_profiler import profile
+#
+#
+# @profile
+def main():
+    with open('/Users/user/PycharmProjects/algorithms/first/input.txt') as f:
         input_dock = f.readline().split(' ')
 
     a, b = [], []  # noqa
@@ -11,10 +15,6 @@ def creating_arrays():
                 b.append(int(input_dock[j]))
             break
 
-    return a, b
-
-
-def symmetric_difference(a, b):
     result, memory = [], []  # noqa
     for i in range(len(a)):
         for j in range(len(b)):
@@ -28,26 +28,15 @@ def symmetric_difference(a, b):
             if b[i] not in memory:
                 result.append(b[i])
 
-    return result
-
-
-def sorting(result):
-    changed = True  # noqa
-    while changed:
-        changed = False
+    swapped = True  # noqa
+    while swapped:
+        swapped = False
         for i in range(len(result) - 1):
             if result[i] > result[i + 1]:
                 result[i], result[i + 1] = result[i + 1], result[i]
-                changed = True
+                swapped = True
     print(*result)
 
 
 if __name__ == '__main__':
-    a, b = creating_arrays()
-    result = symmetric_difference(a, b)
-    sorting(result)
-    # time python first.py - time usage
-    # file for_looking_memory.py - RAM usage
-
-    # 0.02s
-    # 18.1 MiB
+    main()
