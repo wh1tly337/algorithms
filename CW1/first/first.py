@@ -3,7 +3,7 @@
 #
 # @profile
 def main():
-    with open('/Users/user/PycharmProjects/algorithms/first/input.txt') as f:
+    with open('input.txt') as f:
         input_dock = f.readline().split(' ')
 
     a, b = [], []  # noqa
@@ -28,13 +28,17 @@ def main():
             if b[i] not in memory:
                 result.append(b[i])
 
-    swapped = True  # noqa
-    while swapped:
-        swapped = False
-        for i in range(len(result) - 1):
-            if result[i] > result[i + 1]:
-                result[i], result[i + 1] = result[i + 1], result[i]
-                swapped = True
+    # счетная сортировка со сложностью O(N)
+    k = max(result) + 1
+    count = [0] * k
+    for i in result:
+        count[i] += 1
+    j = 0
+    for i in range(k):
+        for _ in range(count[i]):
+            result[j] = i
+            j += 1
+
     print(*result)
 
 
