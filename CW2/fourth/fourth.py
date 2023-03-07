@@ -3,37 +3,21 @@ def main():
         count_elements = int(f.readline())
         elements = f.readline().split(' ')
 
-    max_iter = 0
+    stack = []
     for i in range(count_elements):
         try:
-            int(elements[i])
+            stack.append(int(elements[i]))
         except Exception:
-            max_iter += 1
-            continue
+            a = stack.pop()
+            b = stack.pop()
+            if elements[i] == '+':
+                stack.append(b + a)
+            elif elements[i] == '-':
+                stack.append(b - a)
+            elif elements[i] == '*':
+                stack.append(b * a)
 
-    i, k = 0, 0
-    while k < max_iter:
-        symbol = False
-        if elements[i] == '+':
-            meaning = int(elements[i - 2]) + int(elements[i - 1])
-            symbol = True
-        elif elements[i] == '-':
-            meaning = int(elements[i - 2]) - int(elements[i - 1])
-            symbol = True
-        elif elements[i] == '*':
-            meaning = int(elements[i - 2]) * int(elements[i - 1])
-            symbol = True
-        else:
-            i += 1
-
-        if symbol:
-            elements.remove(elements[i])
-            elements.remove(elements[i - 1])
-            elements[i - 2] = str(meaning)  # noqa
-            k += 1
-            i = 0
-
-    print(*elements)
+    print(*stack)
 
 
 if __name__ == '__main__':
