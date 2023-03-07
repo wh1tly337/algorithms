@@ -1,13 +1,14 @@
 def main():
     line, element = [], []
     with open('input.txt') as f:
-        first_line = f.readline().split(' ')
-        count_entries = int(first_line[0])
-        count_parameters = int(first_line[1])
-        priority = f.readline().replace('\n', '').split(' ')
+        first_line = f.readline().split(' ')  # считывает первую строку
+        count_entries = int(first_line[0])  # кол-во записей
+        count_parameters = int(first_line[1])  # кол-во параметров
+        priority = f.readline().replace('\n', '').split(' ')  # получает
+        # приоритет столбцов
         for i in range(count_entries):
             element = f.readline().replace('\n', '').split(' ')
-            line.append(element)
+            line.append(element)  # массив с записями
 
     # Изначальный вариант (сложность O(N^2))
     # result = []
@@ -26,8 +27,12 @@ def main():
         [str(line[i][int(priority[j])]) for j in range(count_parameters)] +
         [line[i][0]] for i in range(count_entries)
     ]
+    # Временная сложность этого фрагмента равна O(N), где N - общее количество
+    # элементов в списке входных строк. Это происходит потому, что мы
+    # выполняем итерацию по строке только один раз, а все остальные операции
+    # внутри цикла являются операциями константной сложности.
 
-    result = merge_sort(result)
+    result = merge_sort(result)  # сортировка слиянием
 
     for i in range(count_entries - 1, -1, -1):
         print(result[i][-1])
@@ -35,6 +40,8 @@ def main():
 
 # noinspection DuplicatedCode
 def merge_sort(x):
+    """Сортировка слиянием со сложностью O(log(N))."""
+    # эта проверка значительно ускоряет процесс сортировки
     if len(x) < 20:
         return sorted(x)
     result = []
@@ -56,3 +63,9 @@ def merge_sort(x):
 
 if __name__ == '__main__':
     main()
+
+# Итог: сложность данного алгоритма O(log(N), поскольку main() не обладает
+# вложенными циклами или чем-то еще имеющим сложность больше O(log(N), а
+# сортировка слиянием в любом случае имеет сложность O(log(N), что и является
+# максимальной в данной программе. N - это количество записей * количество
+# параметров

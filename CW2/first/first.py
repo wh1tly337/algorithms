@@ -1,14 +1,16 @@
 def main():
-    input_value = []
+    input_value = []  # массив для чисел из файла
     with open('input.txt') as f:
-        count = int(f.readline())
+        count = int(f.readline())  # кол-во послед чисел
         for i in range(count):
             input_value.append(int(f.readline().replace('\n', '')))
-    sorted_mass = merge_sort(input_value)
+    sorted_mass = merge_sort(input_value)  # сортировка массива слиянием
     three_plus, three_minus = 1, 1
     for i in range(1, 4):
+        # произведение трех максимальных элементов
         three_plus = three_plus * sorted_mass[-i]
     for i in range(3):
+        # произведение двух минимальных и максимальной переменной
         if i < 2:
             three_minus = three_minus * sorted_mass[i]
         else:
@@ -21,6 +23,8 @@ def main():
 
 # noinspection DuplicatedCode
 def merge_sort(x):
+    """Сортировка слиянием со сложностью O(log(N))."""
+    # эта проверка значительно ускоряет процесс сортировки
     if len(x) < 20:
         return sorted(x)
     result = []
@@ -42,3 +46,8 @@ def merge_sort(x):
 
 if __name__ == '__main__':
     main()
+
+# Итог: сложность данного алгоритма O(log(N), поскольку main() не обладает
+# вложенными циклами или чем-то еще имеющим сложность больше O(log(N), а
+# сортировка слиянием в любом случае имеет сложность O(log(N), что и является
+# максимальной в данной программе

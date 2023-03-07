@@ -1,24 +1,26 @@
 def main():
     line = []
     with open('input.txt') as f:
-        count_lines = int(f.readline())
+        count_lines = int(f.readline())  # число команд
         for i in range(count_lines):
             element = f.readline().replace('\n', '')
-            line.append(element)
+            line.append(element)  # массив с записями
     mass = []
     for i in range(count_lines):
-        action = line[i][0]
+        action = line[i][0]  # получение действия
         if action == '+':
-            mass.append(int(line[i].split(' ')[1]))
+            mass.append(int(line[i].split(' ')[1]))  # добавление в массив
         elif action == '-':
-            mass.remove(mass[0])
+            mass.remove(mass[0])  # удаление из массива
         else:
-            result = merge_sort(mass)
+            result = merge_sort(mass)  # сортировка слиянием
             print(result[0])
 
 
 # noinspection DuplicatedCode
 def merge_sort(x):
+    """Сортировка слиянием со сложностью O(log(N))."""
+    # эта проверка значительно ускоряет процесс сортировки
     if len(x) < 20:
         return sorted(x)
     result = []
@@ -40,3 +42,8 @@ def merge_sort(x):
 
 if __name__ == '__main__':
     main()
+
+# Итог: сложность данного алгоритма O(log(N), поскольку main() не обладает
+# вложенными циклами или чем-то еще имеющим сложность больше O(log(N), а
+# сортировка слиянием в любом случае имеет сложность O(log(N), что и является
+# максимальной в данной программе. N - это количество записей в файле
