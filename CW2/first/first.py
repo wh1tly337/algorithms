@@ -1,6 +1,3 @@
-import operator
-
-
 def main():
     input_value = []
     with open('input.txt') as f:
@@ -23,32 +20,23 @@ def main():
 
 
 # noinspection DuplicatedCode
-def merge_sort(line, compare=operator.lt):
-    if len(line) < 2:
-        return line[:]
-    else:
-        middle = int(len(line) / 2)
-        left = merge_sort(line[:middle], compare)
-        right = merge_sort(line[middle:], compare)
-        return merge(left, right, compare)
-
-
-def merge(left, right, compare):
+def merge_sort(x):
+    if len(x) < 20:
+        return sorted(x)
     result = []
+    mid = int(len(x) / 2)
+    y = merge_sort(x[:mid])
+    z = merge_sort(x[mid:])
     i, j = 0, 0
-    while i < len(left) and j < len(right):
-        if compare(left[i], right[j]):
-            result.append(left[i])
-            i += 1
-        else:
-            result.append(right[j])
+    while i < len(y) and j < len(z):
+        if y[i] > z[j]:
+            result.append(z[j])
             j += 1
-    while i < len(left):
-        result.append(left[i])
-        i += 1
-    while j < len(right):
-        result.append(right[j])
-        j += 1
+        else:
+            result.append(y[i])
+            i += 1
+    result += y[i:]
+    result += z[j:]
     return result
 
 
