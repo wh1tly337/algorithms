@@ -1,11 +1,30 @@
 from functools import lru_cache
 
-counterP, counterV = 0, 0
+counter_p, counter_v = 0, 0
 
 
 def main():
+    max_p, max_v = 0, 0
+    move_p, move_v = 0, 0
     for i in range(1, 101):
-        print(i, game(i), meaning(i))
+        result = game(i)
+        result = result.split(' ')
+        if result[0] == 'P':
+            if int(result[1]) > max_p:
+                max_p = int(result[1])
+                move_p = i
+        else:
+            if int(result[1]) > max_v:
+                max_v = int(result[1])
+                move_v = i
+
+    if max_p == max_v:
+        print(f"Петя победит за {max_p} ходов, начиная с {move_p} камней и "
+              f"Ваня победит за {max_v} ходов, начиная с {move_v} камней")
+    elif max_p > max_v:
+        print(f"Петя победит за {max_p} ходов, начиная с {move_p} камней")
+    else:
+        print(f"Ваня победит за {max_v} ходов, начиная с {move_v} камней")
 
 
 def meaning(a):
@@ -14,25 +33,25 @@ def meaning(a):
 
 @lru_cache(None)
 def game(a):
-    global counterP, counterV
+    global counter_p, counter_v
 
     if a > 150:
         return 'win'
     elif any(game(x) == 'win' for x in meaning(a)):
-        return 'P1'
-    elif all(game(x) == 'P1' for x in meaning(a)):
-        return 'V1'
-    elif any(game(x) == 'V1' for x in meaning(a)):
-        return 'P2'
-    elif all(game(x) == 'P2' or game(x) == 'P1' for x in meaning(a)):
-        return 'V2'
+        return 'P 1'
+    elif all(game(x) == 'P 1' for x in meaning(a)):
+        return 'V 1'
+    elif any(game(x) == 'V 1' for x in meaning(a)):
+        return 'P 2'
+    elif all(game(x) == 'P 2' or game(x) == 'P1' for x in meaning(a)):
+        return 'V 2'
     else:
         if any((game(i) == 'win' or game(i)[0] == 'V') for i in meaning(a)):
-            counterP += 1
-            return f"P{2 + counterP}"
+            counter_p += 1
+            return f"P {2 + counter_p}"
         elif all(game(i)[0] == 'P' for i in meaning(a)):
-            counterV += 1
-            return f"V{2 + counterV}"
+            counter_v += 1
+            return f"V {2 + counter_v}"
 
 
 if __name__ == '__main__':
