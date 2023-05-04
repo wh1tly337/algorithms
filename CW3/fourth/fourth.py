@@ -1,3 +1,14 @@
+class MaxValue:
+    def __init__(self, value):
+        self.value = value
+
+    def get_value(self):
+        return self.value
+
+    def set_value(self, value):
+        self.value = value
+
+
 def main(matrix, row):
     if row == len(matrix):
         get_result(matrix)
@@ -59,7 +70,10 @@ def get_result(matrix):
     for row in matrix:
         if 'M' in row:
             counter += 1
-    if counter > 3:
+            if counter > max_value.get_value():
+                max_value.set_value(counter)
+
+    if counter == max_value.get_value():
         print(counter)
         for row in matrix:
             print(str(row).replace(',', '').replace('\'', ''))
@@ -67,6 +81,7 @@ def get_result(matrix):
 
 
 if __name__ == '__main__':
+    max_value = MaxValue(0)
     with open('input.txt') as f:
         n = int(f.readline())
 
