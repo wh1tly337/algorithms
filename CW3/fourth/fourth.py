@@ -91,5 +91,5 @@ if __name__ == '__main__':
         n = int(f.readline())
 
     max_value = MaxValue(0)
-    for i in range(n):
-        main([['-'] * n for _ in range(n)], i)
+    for m in range(n):
+        main([['-'] * n for _ in range(n)], m)
