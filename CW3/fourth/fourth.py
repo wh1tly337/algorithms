@@ -24,7 +24,7 @@ def main(matrix, row):
             matrix[row][i] = 'M'
             main(matrix, row + 1)
             matrix[row][i] = '–'
-        elif i == 4 and flag is False:
+        elif i == (n - 1) and flag is False:
             main(matrix, row + 1)
 
 
@@ -91,4 +91,5 @@ if __name__ == '__main__':
         n = int(f.readline())
 
     max_value = MaxValue(0)
-    main([['-'] * n for _ in range(n)], 0)
+    for i in range(n):
+        main([['-'] * n for _ in range(n)], i)
