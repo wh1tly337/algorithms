@@ -3,12 +3,14 @@ def main(matrix, row):
         get_result(matrix)
         return
 
+    flag = False
     for i in range(len(matrix)):
         if is_safe(matrix, row, i):
+            flag = True
             matrix[row][i] = 'M'
             main(matrix, row + 1)
             matrix[row][i] = '–'
-        else:
+        elif i == 4 and flag is False:
             main(matrix, row + 1)
 
 
@@ -23,13 +25,15 @@ def is_safe(matrix, row, column):
         '6': {'x': +1, 'y': -2},
         '7': {'x': +2, 'y': -1}
     }
-    for i in range(7):
+    for i in range(8):
         try:
             move = horse.get(str(i))
-            if matrix[row + move.get('x')][column + move.get('y')] == 'M':
+            if matrix[row + move.get('x')][column + move.get('y')] == 'M' and \
+                    (row + move.get('x')) >= 0 \
+                    and (column + move.get('y')) >= 0:
                 return False
         except Exception:
-            continue
+            pass
 
     for i in range(row):
         if matrix[i][column] == 'M':
@@ -55,7 +59,7 @@ def get_result(matrix):
     for row in matrix:
         if 'M' in row:
             counter += 1
-    if counter > 2:
+    if counter > 3:
         print(counter)
         for row in matrix:
             print(str(row).replace(',', '').replace('\'', ''))
