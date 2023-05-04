@@ -1,3 +1,6 @@
+import sys
+
+
 class MaxValue:
     def __init__(self, value):
         self.value = value
@@ -79,10 +82,13 @@ def get_result(matrix):
             print(str(row).replace(',', '').replace('\'', ''))
         print()
 
+    if counter == n:
+        sys.exit()
+
 
 if __name__ == '__main__':
-    max_value = MaxValue(0)
     with open('input.txt') as f:
         n = int(f.readline())
 
+    max_value = MaxValue(0)
     main([['-'] * n for _ in range(n)], 0)
