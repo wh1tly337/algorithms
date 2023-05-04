@@ -69,12 +69,9 @@ def is_safe(matrix, row, column):
 
 
 def get_result(matrix):
-    counter = 0
-    for row in matrix:
-        if 'M' in row:
-            counter += 1
-            if counter > max_value.get_value():
-                max_value.set_value(counter)
+    counter = sum('M' in row for row in matrix)
+    if counter > max_value.get_value():
+        max_value.set_value(counter)
 
     if counter == max_value.get_value():
         print(counter)
