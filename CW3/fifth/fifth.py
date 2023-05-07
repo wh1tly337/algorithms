@@ -1,28 +1,64 @@
 from functools import lru_cache
 
 
-def moves(s):
-    a, b = s
-    return (a * 2, b), (a + 1, b), (a, b * 2), (a, b + 1)
-
-
+# noinspection PyShadowingNames
 @lru_cache(None)
-def game(s):
-    if sum(s) >= 77:
-        return 'end'
-    elif any(game(x) == 'end' for x in moves(s)):
-        return 'PETR1'
-    elif all(game(x) == 'PETR1' for x in moves(s)):
-        return 'IVAN1'
-    elif any(game(x) == 'IVAN1' for x in moves(s)):
-        return 'PETR2'
-    elif all(game(x) == 'PETR1' or game(x) == 'PETR2' for x in moves(s)):
-        return 'IVAN2'
+def max_moves(s1, s2):
+    memo = {}
+
+    # noinspection PyShadowingNames
+    @lru_cache(None)
+    def recurse(s1, s2, player):
+        if s1 + s2 >= 77:
+            return 0
+
+        if (s1, s2, player) in memo:
+            return memo[(s1, s2, player)]
+
+        if player == 1:
+            moves = []
+            if s1 < 69:
+                moves.append(recurse(s1 + 1, s2, 2))
+            if s2 < 69:
+                moves.append(recurse(s1, s2 + 1, 2))
+            if s1 > 0:
+                moves.append(recurse(2 * s1, s2, 2))
+            if s2 > 0:
+                moves.append(recurse(s1, 2 * s2, 2))
+            result = 1 + min(moves)
+        else:
+            moves = []
+            if s1 < 69:
+                moves.append(recurse(s1 + 1, s2, 1))
+            if s2 < 69:
+                moves.append(recurse(s1, s2 + 1, 1))
+            if s1 > 0:
+                moves.append(recurse(2 * s1, s2, 1))
+            if s2 > 0:
+                moves.append(recurse(s1, 2 * s2, 1))
+            result = 1 + max(moves)
+
+        memo[(s1, s2, player)] = result
+        return result
+
+    max_moves = recurse(s1, s2, 1)
+    return max_moves
 
 
-for i in range(1, 69):
-    j = 1
-    while i + j < 77:
-        heap = (j, i)
-        print(i, j, game(heap))
-        j += 1
+def main():
+    m = 0
+    for i in range(1, 69):
+        j = 1
+        while i + j < 77:
+            result = max_moves(j, i)
+            if result > m:
+                m = result
+                pos = [i, j]
+            j += 1
+
+    # noinspection PyUnboundLocalVariable
+    print(pos[0], pos[1], m)
+
+
+if __name__ == '__main__':
+    main()
