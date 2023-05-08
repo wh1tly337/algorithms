@@ -6,18 +6,22 @@ import java.util.BitSet;
 
 
 public class Maharaja {
+    public static long start;
+
     public static void main(String[] args) throws Exception {
-        String src = "/Users/user/IdeaProjects/algorithms/input.txt";
+        start = System.currentTimeMillis();
+        final String src = "/Users/user/IdeaProjects/algorithms/input.txt";
         try (BufferedReader reader = new BufferedReader(new FileReader(src))) {
-            int n = Integer.parseInt(reader.readLine());
-            BitSet board = new BitSet(n * n);
+            final int n = Integer.parseInt(reader.readLine());
+            final BitSet board = new BitSet(n * n);
 
             maharaja(board, 0, n);
 
             System.out.println(result.getResult());
             System.out.println(matrix.getResult());
 
-//            System.out.println(System.currentTimeMillis());
+            final double elapsed = (System.currentTimeMillis() - start) * 0.001;
+            System.out.println("Прошло времени: " + elapsed);
         }
     }
 
@@ -40,45 +44,35 @@ public class Maharaja {
         }
     }
 
+    public static final int[] x = {-1, -2, -2, -1};
+    public static final int[] y = {2, 1, -1, -2};
+
     private static boolean warning(BitSet board, int row, int column, int n) {
-        int[] x = {+2, +1, -1, -2, -2, -1, +1, +2};
-        int[] y = {+1, +2, +2, +1, -1, -2, -2, -1};
-
-        for (int i = 0; i < 8; i++) {
-            if (
-                    row + x[i] >= 0 && row + x[i] < n &&
-                            column + y[i] >= 0 && column + y[i] < n
-            ) {
-                if (board.get((row + x[i]) * n + column + y[i])) {
-                    return false;
-                }
-            }
-        }
-
         for (int i = 0; i < row; i++) {
-            if (board.get(i * n + column)) {
-                return false;
-            }
+            if (board.get(i * n + column)) return false;
         }
 
-        for (
-                int i = row, j = column;
-                i >= 0 && j >= 0 && i < n && j < n;
-                i--, j--
+        for (int i = row, j = column; i >= 0 && i < n && j >= 0 && j < n; i--, j--
         ) {
-            if (board.get(i * n + j)) {
-                return false;
-            }
+            if (board.get(i * n + j)) return false;
         }
 
-        for (
-                int i = row, j = column;
-                i >= 0 && j < n && i < n;
-                i--, j++
+        for (int i = row, j = column; i >= 0 && j < n && j >= 0 && i < n; i--, j++
         ) {
-            if (board.get(i * n + j)) {
-                return false;
-            }
+            if (board.get(i * n + j)) return false;
+        }
+
+        if (row + x[0] < n && row + x[0] >= 0 && column + y[0] < n && column + y[0] >= 0) {
+            if (board.get((row + x[0]) * n + column + y[0])) return false;
+        }
+        if (row + x[1] < n && row + x[1] >= 0 && column + y[1] < n && column + y[1] >= 0) {
+            if (board.get((row + x[1]) * n + column + y[1])) return false;
+        }
+        if (row + x[2] < n && row + x[2] >= 0 && column + y[2] < n && column + y[2] >= 0) {
+            if (board.get((row + x[2]) * n + column + y[2])) return false;
+        }
+        if (row + x[3] < n && row + x[3] >= 0 && column + y[3] < n && column + y[3] >= 0) {
+            return !board.get((row + x[3]) * n + column + y[3]);
         }
 
         return true;
@@ -86,23 +80,28 @@ public class Maharaja {
 
     private static final Matrix matrix = new Matrix();
     private static final Result result = new Result(0);
+    private static final StringBuilder score = new StringBuilder();
 
     private static void solution(BitSet board, int n) {
         int counter = board.cardinality();
         if (counter > result.getResult()) {
             result.setResult(counter);
-            StringBuilder result = new StringBuilder();
+            score.setLength(0);
             for (int i = 0; i < n * n; i++) {
-                result.append(board.get(i) ? " M " : " - ");
+                score.append(board.get(i) ? " M " : " - ");
                 if (i % n == n - 1) {
-                    result.append("\n");
+                    score.append("\n");
                 }
             }
-            matrix.setResult(result);
+            matrix.setResult(score);
         }
         if (counter == n) {
             System.out.println(result.getResult());
             System.out.println(matrix.getResult());
+
+            double elapsed = (System.currentTimeMillis() - start) * 0.001;
+            System.out.println("Прошло времени: " + elapsed);
+
             System.exit(0);
         }
     }
@@ -126,17 +125,17 @@ class Matrix {
 
 class Result {
 
-    private Integer value;
+    private int value;
 
     public Result(int value) {
         this.value = value;
     }
 
-    public void setResult(Integer value) {
+    public void setResult(int value) {
         this.value = value;
     }
 
-    public Integer getResult() {
+    public int getResult() {
         return value;
     }
 }
