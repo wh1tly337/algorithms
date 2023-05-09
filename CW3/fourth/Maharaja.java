@@ -1,5 +1,3 @@
-package Maharaja;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.BitSet;
@@ -10,7 +8,7 @@ public class Maharaja {
 
     public static void main(String[] args) throws Exception {
         start = System.currentTimeMillis();
-        final String src = "/Users/user/IdeaProjects/algorithms/input.txt";
+        final String src = "C:/Users/wh1tly337/IdeaProjects/algotitms/src/input.txt";
         try (BufferedReader reader = new BufferedReader(new FileReader(src))) {
             final int n = Integer.parseInt(reader.readLine());
             final BitSet board = new BitSet(n * n);
@@ -52,14 +50,11 @@ public class Maharaja {
             if (board.get(i * n + column)) return false;
         }
 
-        for (int i = row, j = column; i >= 0 && i < n && j >= 0 && j < n; i--, j--
-        ) {
-            if (board.get(i * n + j)) return false;
+        if (!checkDiagonal(row - 1, column - 1, -1, -1, n, board)) {
+            return false;
         }
-
-        for (int i = row, j = column; i >= 0 && j < n && j >= 0 && i < n; i--, j++
-        ) {
-            if (board.get(i * n + j)) return false;
+        if (!checkDiagonal(row - 1, column + 1, -1, 1, n, board)) {
+            return false;
         }
 
         if (row + x[0] < n && row + x[0] >= 0 && column + y[0] < n && column + y[0] >= 0) {
@@ -76,6 +71,14 @@ public class Maharaja {
         }
 
         return true;
+    }
+
+    private static boolean checkDiagonal(int row, int column, int dirRow, int dirCol, int n, BitSet chessBoard) {
+        if (row < 0 || row >= n || column < 0 || column >= n) return true;
+
+        if (chessBoard.get(row * n + column)) return false;
+
+        return checkDiagonal(row + dirRow, column + dirCol, dirRow, dirCol, n, chessBoard);
     }
 
     private static final Matrix matrix = new Matrix();
