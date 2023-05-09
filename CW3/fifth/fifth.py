@@ -1,5 +1,7 @@
 from functools import lru_cache
 
+global last
+
 
 # noinspection PyShadowingNames
 @lru_cache(None)
@@ -9,6 +11,8 @@ def max_moves(s1, s2):
     # noinspection PyShadowingNames
     @lru_cache(None)
     def recurse(s1, s2, player):
+        global last
+
         if s1 + s2 >= 77:
             return 0
 
@@ -39,6 +43,7 @@ def max_moves(s1, s2):
             result = 1 + max(moves)
 
         memo[(s1, s2, player)] = result
+        last = player
         return result
 
     max_moves = recurse(s1, s2, 1)
@@ -51,14 +56,19 @@ def main():
         j = 1
         while i + j < 77:
             result = max_moves(j, i)
+            result_p = last
             if result > m:
                 m = result
                 pos = [i, j]
             j += 1
 
     # noinspection PyUnboundLocalVariable
-    print(pos[0], pos[1], m)
+    print(pos[0], pos[1], m, result_p)
 
 
 if __name__ == '__main__':
     main()
+
+# Итог: сложность данного алгоритма O(n^2), но из-за использования
+# динамического программирования скорость выполнения программы достаточно
+# высокая

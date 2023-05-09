@@ -23,6 +23,12 @@ public class Maharaja {
         }
     }
 
+    //Временная сложность метода `maharaja` равна `O(n ^n)`, где `n` - размер
+    // шахматной доски. Это связано с тем, что для каждой строки метод
+    // выполняет `n` рекурсивных вызовов, каждый из которых имеет `n-1`,
+    // `n-2`, ..., `1` возможных вариантов для позиции Магараджи.
+    // Это приводит к коэффициенту ветвления `n` на каждом уровне, а глубина
+    // рекурсии равна `n`, поскольку на шахматной доске имеется `n` строк.
     private static void maharaja(BitSet board, int row, int n) {
         if (row == n) {
             solution(board, n);
@@ -45,6 +51,10 @@ public class Maharaja {
     public static final int[] x = {-1, -2, -2, -1};
     public static final int[] y = {2, 1, -1, -2};
 
+    //Временная сложность метода "warning" равна "O(n)", поскольку он проверяет
+    // каждую ячейку в одной строке, а также не более 8 ячеек по диагоналям,
+    // и конь перемещается. Метод `checkDiagonal` также является методом
+    // `O(n)`, поскольку он рекурсивно проверяет каждую ячейку на диагонали
     private static boolean warning(BitSet board, int row, int column, int n) {
         for (int i = 0; i < row; i++) {
             if (board.get(i * n + column)) return false;
@@ -85,6 +95,9 @@ public class Maharaja {
     private static final Result result = new Result(0);
     private static final StringBuilder score = new StringBuilder();
 
+    // Временная сложность метода "solution" равна "O (n ^ 2)", поскольку он
+    // выполняет итерацию по всем ячейкам шахматной доски,
+    // чтобы создать строку результатов.
     private static void solution(BitSet board, int n) {
         int counter = board.cardinality();
         if (counter > result.getResult()) {
@@ -143,3 +156,5 @@ class Result {
     }
 }
 
+//Итог: сложность данного алгоритма  "O(n ^ n)", поскольку "maharaja"
+// доминирует во времени выполнения.
