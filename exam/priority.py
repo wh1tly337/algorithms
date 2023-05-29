@@ -102,6 +102,8 @@ class PriorityQueue:
 
     @property
     def queue(self):
+        """ Свойство для получения всего списка.
+        Заменяет _queue на queue вне этого класса. """
         return self._queue
 
 
