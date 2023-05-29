@@ -3,17 +3,14 @@ class Queue:
         self.queue = []
 
     def enqueue(self, item):
-        """ Добавление элемента в конец очереди. """
+        """ Добавление элемента в конец очереди.
+        Сложность O(1). """
 
         self.queue.append(item)
 
-    # def enqueue(self, item):
-    #     """ Добавление элемента в конец очереди. """
-    #
-    #     self.queue.insert(0, item)
-
     def dequeue(self):
-        """ Удаление элемента из начала очереди. """
+        """ Удаление элемента из начала очереди.
+        Сложность O(n) из-за копирования очереди. """
 
         if not self.is_empty():
             last_element = self.queue[0]  # Получение последнего элемента
@@ -22,10 +19,21 @@ class Queue:
         else:
             print('Очередь пуста.')
 
-        # if not self.is_empty():
-        #     return self.queue.pop()
-        # else:
-        #     print('Очередь пуста.')
+    # def enqueue(self, item):
+    #     """ Добавление элемента в конец очереди.
+    #     Сложность O(n) из-за копирования очереди. """
+    #
+    #     self.queue.insert(0, item)
+    #
+    # def dequeue(self):
+    #     """ Удаление элемента из начала очереди.
+    #     Сложность O(1), тк удаляем последний элемент (не требует сдвига), а
+    #     не обращаемся по индексу. """
+    #
+    #     if not self.is_empty():
+    #         return self.queue.pop()
+    #     else:
+    #         print('Очередь пуста.')
 
     def is_empty(self):
         """ Проверка является ли очередь пустой или нет. """
@@ -36,7 +44,7 @@ class Queue:
         """ Вывод в консоль первого элемента, без его удаления. """
 
         if not self.is_empty():
-            return self.queue[0]
+            return self.queue[0]  # -1, если insert() и pop()
         else:
             print('Очередь пуста.')
 
@@ -44,7 +52,7 @@ class Queue:
         """ Вывод в консоль последнего элемента, без его удаления. """
 
         if not self.is_empty():
-            return self.queue[-1]
+            return self.queue[-1]  # 0, если insert() и pop()
         else:
             print('Очередь пуста.')
 
