@@ -9,6 +9,7 @@ class Queue:
 
     # def enqueue(self, item):
     #     """ Добавление элемента в конец очереди. """
+    #
     #     self.queue.insert(0, item)
 
     def dequeue(self):
@@ -20,6 +21,11 @@ class Queue:
             return last_element
         else:
             print('Очередь пуста.')
+
+        # if not self.is_empty():
+        #     return self.queue.pop()
+        # else:
+        #     print('Очередь пуста.')
 
     def is_empty(self):
         """ Проверка является ли очередь пустой или нет. """
