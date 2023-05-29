@@ -92,7 +92,7 @@ class CircularQueue:
     def is_empty(self):
         return self.head == -1
 
-    def front(self):
+    def peek(self):
         if self.is_empty():
             print('Очередь пуста.')
         else:
@@ -117,7 +117,7 @@ print('\nДобавление элементов: 10,20,30,40')
 print('Вся очередь: ', my_queue.queue)
 
 # Вывод передних и задних элементов
-print('\nПервый:', my_queue.front())
+print('\nПервый:', my_queue.peek())
 print('Последний:', my_queue.rear())
 
 # Удаление и вывод этих элементов
@@ -133,7 +133,7 @@ print('\nДобавление элементов: 50,60')
 print('Вся очередь: ', my_queue.queue)
 
 # Вывод передних и задних элементов
-print('\nПервый:', my_queue.front())
+print('\nПервый:', my_queue.peek())
 print('Последний:', my_queue.rear())
 
 # Добавление элементов в очередь
