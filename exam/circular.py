@@ -113,7 +113,7 @@ my_queue.enqueue(10)
 my_queue.enqueue(20)
 my_queue.enqueue(30)
 my_queue.enqueue(40)
-print('\nДобавление элементов: 10,20,30,40')
+print('\nДобавление элементов: 10, 20, 30, 40')
 print('Вся очередь: ', my_queue.queue)
 
 # Вывод передних и задних элементов
@@ -129,7 +129,7 @@ print('Вся очередь: ', my_queue.queue)
 # Добавление элементов в очередь
 my_queue.enqueue(50)
 my_queue.enqueue(60)
-print('\nДобавление элементов: 50,60')
+print('\nДобавление элементов: 50, 60')
 print('Вся очередь: ', my_queue.queue)
 
 # Вывод передних и задних элементов
