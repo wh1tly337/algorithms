@@ -69,15 +69,15 @@ class CircularQueue:
         if self.is_empty():
             return 'Очередь пуста.'
         elif self.head == self.tail:
-            item = self.queue[self.head]
+            last_element = self.queue[self.head]
             self.head = -1
             self.tail = -1
-            return item
+            return last_element
         else:
-            item = self.queue[self.head]
+            last_element = self.queue[self.head]
             self.queue[self.head] = None
             self.head = (self.head + 1) % self.k
-            return item
+            return last_element
 
     def is_full(self):
         """ Временная сложность равна O(1)
