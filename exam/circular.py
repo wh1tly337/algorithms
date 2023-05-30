@@ -101,7 +101,7 @@ class CircularQueue:
         количества элементов в очереди. Следовательно, его временная сложность
         равна O(1)."""
 
-        return (self.tail + 1) % self.k == self.head  # O(n*log(n)) из-за %
+        return (self.tail + 1) % self.k == self.head
 
     def is_empty(self):
         return self.head == -1
